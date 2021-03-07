@@ -30,3 +30,14 @@ Test on Windows, Linux, and MacOS. Since I work in Windows and Linux and don't u
 
 ### Library Functions
 - TBD
+
+
+###To Do
+- [ ] Create formal project layout structure
+- [ ] Configure for API calls on submit
+- [ ] Add CSRF protection
+- [ ] Simplify creating config into Pydantic Field options
+- [ ] Add JWT/Authentication capability
+- [ ] Research layout of UI elements for complex forms
+- [ ] How to define options for UI Widgets
+- [ ] Add Themes capability
