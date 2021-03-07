@@ -1,0 +1,17 @@
+<div>Hi</div>
+<div id="app"></div>
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+
+<!-- page scripts-->
+<script src="https://unpkg.com/@rjsf/core/dist/react-jsonschema-form.js" crossorigin></script>
+<script>
+    const Form = JSONSchemaForm.default;
+    const schema = {
+      {{pydantic_schema_form.schema}}
+    };
+    
+    ReactDOM.render((
+      <Form schema={schema} />
+    ), document.getElementById("app"));
+</script>

@@ -1,0 +1,29 @@
+<div id="pydantic_json_form"></div>
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+<!-- page scripts-->
+<script src="https://unpkg.com/@rjsf/core/dist/react-jsonschema-form.js" crossorigin></script>
+<script>
+    const Form = JSONSchemaForm.default;
+    const schema = {
+      {{pydantic_schema_form.schema}}
+    };
+    const schema2 = {
+      title: "Test form",
+      type: "object",
+      properties: {
+        name: {
+          type: "string"
+        },
+        age: {
+          type: "number"
+        }
+      }
+    };
+    
+    ReactDOM.render((
+      <Form schema={schema} />
+    ), document.getElementById("pydantic_json_form"));
+</script>
