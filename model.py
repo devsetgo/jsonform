@@ -83,9 +83,9 @@ class StringModels(BaseModel):
     text_area: str = Field(...,title="text area type",min_length=4, max_length=1000)
     email: str = Field(...,title="email type",min_length=4, max_length=100)
     uri: str = Field(...,title="url type",min_length=4)
-    data_url: str = Field(...,title="data url type",min_length=4, max_length=10)
-    date: str = Field(...,title="date type",min_length=4, max_length=10)
-    date_time: str = Field(...,title="date time type",min_length=4, max_length=10)
+    data_url: str = Field(...,title="data url type")
+    date: str = Field(...,title="date type")
+    date_time: str = Field(...,title="date time type")
 
 
 class ExampleModel(BaseModel):
