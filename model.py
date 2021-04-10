@@ -2,7 +2,7 @@ from enum import Enum
 import json
 from pydantic import BaseModel, Field
 from pydantic.schema import schema, field_schema
-from json_form.ui_elements import BoolTypes, StringTypes, NumberTypes
+from json_form.ui_elements import BoolTypes, HiddenTypes, StringTypes, NumberTypes
 
 
 class FooBar(BaseModel):
@@ -73,11 +73,18 @@ class BoolModels(BaseModel):
     this_is_radio: bool = Field(...,title="radio type")
 
 
-class StringModels(BaseModel):
+class GenderSelect(str, Enum):
+    male = "male"
+    female = "female"
+    other = "other"
+    not_given = "not_given"
+
+
+class StringExample(BaseModel):
     """
     This is an example of building a model for string types
     """
-    text_box: str = Field(...,title="text box type",min_length=4, max_length=100)
+    text_box_object: str = Field(...,title="text box example",min_length=4, max_length=100)
     password: str = Field(...,title="password type",min_length=4, max_length=30)
     color: str = Field(...,title="color type")
     text_area: str = Field(...,title="text area type",min_length=4, max_length=1000)
@@ -85,7 +92,8 @@ class StringModels(BaseModel):
     uri: str = Field(...,title="url type",min_length=4)
     data_url: str = Field(...,title="data url type")
     date: str = Field(...,title="date type")
-    date_time: str = Field(...,title="date time type")
+    date_time: str = Field(...,title="date time type", ui_element=StringTypes.date_time)
+    gender:GenderSelect=Field(...)
 
 
 class ExampleModel(BaseModel):
@@ -94,28 +102,35 @@ class ExampleModel(BaseModel):
     """
 
     bool_example: BoolModels
-    string_example: StringModels
+    string_example: StringExample
+    first_name:str = Field(None,title="First Name",description="your first name",ui_widget=HiddenTypes.hidden,ui_options="pdf")
+    last_name:str=Field(None,title="Last Name")
+    password:str
+
 
     class Config:
-        title = "Main"
-        schema_extra = {
-            "uiSchema": {
-                "bool_example": {
-                    "this_is_radio": BoolTypes.radio,
-                    "this_is_select": BoolTypes.select,
-                    "this_is_radio": BoolTypes.radio,
-                },
-                "string_example": {
-                    "text_box": StringTypes.text_box,
-                    "password": StringTypes.password,
-                    "color": StringTypes.color,
-                    "text_area": StringTypes.text_area,
-                    "email": StringTypes.email,
-                    "uri": StringTypes.uri,
-                    "data_url": StringTypes.data_url,
-                    "date": StringTypes.date,
-                    "date_time": StringTypes.date_time,
+        title = "Francis"
+        # schema_extra = {
+        #     "uiSchema": {
+        #         "bool_example": {
+        #             "this_is_checkbox": {"ui:widget": "checkbox","ui:options": { 'accept': ".pdf" }},
+        #             "this_is_select": BoolTypes.checkbox,
+        #             "this_is_radio": BoolTypes.radio,
+        #         },
+        #         "string_example": {
+        #             "text_box": StringTypes.text_box,
+        #             "password": StringTypes.password,
+        #             "color": StringTypes.color,
+        #             "text_area": StringTypes.text_area,
+        #             "email": StringTypes.email,
+        #             "uri": StringTypes.uri,
+        #             "data_url": StringTypes.data_url,
+        #             "date": StringTypes.date,
+        #             "date_time": StringTypes.date_time,
 
-                },
-            }
-        }
+        #         },
+        #     }
+        # }
+
+
+

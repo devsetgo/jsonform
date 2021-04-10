@@ -27,3 +27,7 @@ class StringTypes:
 
 class HiddenTypes:
     hidden = {"ui:widget": "hidden"}
+
+
+class ElementTypes:
+    Hiden={"ui:widget": "hidden"}

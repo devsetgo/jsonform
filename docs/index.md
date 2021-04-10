@@ -32,7 +32,7 @@ Test on Windows, Linux, and MacOS. Since I work in Windows and Linux and don't u
 - TBD
 
 
-###To Do
+### To Do
 - [ ] Create formal project layout structure
 - [ ] Configure for API calls on submit
 - [ ] Add CSRF protection
