@@ -1,5 +1,6 @@
 from enum import Enum
 import json
+from typing import List,Dict
 from pydantic import BaseModel, Field
 from pydantic.schema import schema, field_schema
 from json_form.ui_elements import BoolTypes, HiddenTypes, StringTypes, NumberTypes
@@ -15,7 +16,7 @@ class FooBar(BaseModel):
         lt=50,
     )
 
-
+ 
 class Gender(str, Enum):
     male = "male"
     female = "female"
@@ -68,9 +69,10 @@ class BoolModels(BaseModel):
     """
     This is an example of building a model for bool types
     """
-    this_is_checkbox: bool = Field(...,title="check box type")
-    this_is_select: bool = Field(...,title="select type")
-    this_is_radio: bool = Field(...,title="radio type")
+
+    this_is_checkbox: bool = Field(..., title="check box type") 
+    this_is_select: bool = Field(..., title="select type")
+    this_is_radio: bool = Field(..., title="radio type")
 
 
 class GenderSelect(str, Enum):
@@ -84,29 +86,43 @@ class StringExample(BaseModel):
     """
     This is an example of building a model for string types
     """
-    text_box_object: str = Field(...,title="text box example",min_length=4, max_length=100)
-    password: str = Field(...,title="password type",min_length=4, max_length=30)
-    color: str = Field(...,title="color type")
-    text_area: str = Field(...,title="text area type",min_length=4, max_length=1000)
-    email: str = Field(...,title="email type",min_length=4, max_length=100)
-    uri: str = Field(...,title="url type",min_length=4)
-    data_url: str = Field(...,title="data url type")
-    date: str = Field(...,title="date type")
-    date_time: str = Field(...,title="date time type", ui_element=StringTypes.date_time)
-    gender:GenderSelect=Field(...)
+
+    text_box_object: str = Field(
+        ..., title="text box example", min_length=4, max_length=100
+    )
+    password: str = Field(..., title="password type", min_length=4, max_length=30)
+    color: str = Field(..., title="color type")
+    text_area: str = Field(..., title="text area type", min_length=4, max_length=1000)
+    email: str = Field(..., title="email type", min_length=4, max_length=100)
+    uri: str = Field(..., title="url type", min_length=4)
+    data_url: str = Field(..., title="data url type")
+    date: str = Field(..., title="date type")
+    date_time: str = Field(
+        ..., title="date time type", ui_element=StringTypes.date_time
+    )
+    gender: GenderSelect = Field(...)
+
+class BooksModels(BaseModel):
+    name:str=Field(...,title="book name",min_length=2,max_length=40)
+    isbn:str
 
 
 class ExampleModel(BaseModel):
     """
     This is an example of building a model
     """
-
+    books:List[BoolModels]=None
     bool_example: BoolModels
     string_example: StringExample
-    first_name:str = Field(None,title="First Name",description="your first name",ui_widget=HiddenTypes.hidden,ui_options="pdf")
-    last_name:str=Field(None,title="Last Name")
-    password:str
-
+    first_name: str = Field(
+        None,
+        title="First Name",
+        description="your first name",
+        ui_widget=HiddenTypes.hidden,
+        ui_options="pdf",
+    )
+    last_name: str = Field(None, title="Last Name")
+    password: str
 
     class Config:
         title = "Francis"
@@ -131,6 +147,3 @@ class ExampleModel(BaseModel):
         #         },
         #     }
         # }
-
-
-

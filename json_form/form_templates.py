@@ -77,20 +77,18 @@ FULL_PAGE = """
 <script src="https://unpkg.com/@rjsf/core/dist/react-jsonschema-form.js" crossorigin></script>
 <script>
   const Form = JSONSchemaForm.default;
-  const schema={{pydantic_schema_form.schema}};
-  const uiSchema={{pydantic_schema_form.uiSchema}};
+  const schema={{pydantic_schema_form.schema}}
+  
     
-const log = type => console.log.bind(console, type);
-const onSubmit = ({formData}, e) => console.log("Data submitted: ",  formData);
+  const log = type => console.log.bind(console, type);
+
   ReactDOM.render( /*#__PURE__*/
     React.createElement(Form, {
       schema: schema,
-      uiSchema: uiSchema,
+      
       onChange: log("changed"),
-      onError: log("errors"),
-      action: "/",
-      method: "post",
-      enctype: "multipart/form-data"
+      onSubmit: log("submitted"),
+      onError: log("errors")
     }),
     document.getElementById("pydantic_schema_form"));
 </script>
@@ -122,7 +120,7 @@ FULL_PAGE_TWO = """
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
-      <div id="pydantic_schema_form"></div>
+      <div id="app"> </div>
 <!-- Load React. -->
 <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
 <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
@@ -130,29 +128,24 @@ FULL_PAGE_TWO = """
 <!-- page scripts-->
 <script src="https://unpkg.com/@rjsf/core/dist/react-jsonschema-form.js" crossorigin></script>
 <script>
-  const Form = JSONSchemaForm.default;
-  const schema={{pydantic_schema_form.schema}};
-  const uiSchema={{pydantic_schema_form.uiSchema}};
-    
-const log = type => console.log.bind(console, type);
-const onSubmit = ({formData}, e) => console.log("Data submitted: ",  formData);
-  ReactDOM.render( /*#__PURE__*/
-    React.createElement(Form, {
-      schema: schema,
-      uiSchema: uiSchema,
-      onChange: log("changed"),
-      onError: log("errors"),
-      action: "/",
-      method: "post",
-      enctype: "multipart/form-data"
-    }),
-    document.getElementById("pydantic_schema_form"));
+const Form = JSONSchemaForm.default;
+const schema = {{pydantic_schema_form.schema|safe}};
+const uiSchema={{pydantic_schema_form.uiSchema|safe}};
+const log = (type) => console.log.bind(console, type);
+
+ReactDOM.render( /*#__PURE__*/
+  React.createElement(Form, {
+    schema: schema,
+    uiSchema: uiSchema,
+    onChange: log("changed"),
+    onSubmit: log("submitted"),
+    onError: log("errors")
+  }),
+  document.getElementById("app"));
 </script>
     </div>
   </div>
 </div>
-
 </body>
 </html>
-    """
-
+"""

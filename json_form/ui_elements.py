@@ -30,4 +30,4 @@ class HiddenTypes:
 
 
 class ElementTypes:
-    Hiden={"ui:widget": "hidden"}
+    Hiden = {"ui:widget": "hidden"}

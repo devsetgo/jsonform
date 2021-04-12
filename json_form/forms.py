@@ -26,41 +26,34 @@ def form_engine(
     template_type: str = None,
 ):
 
-    template_used = form_templates.SIMPLE_FORM
+    template_used = form_templates.FULL_PAGE_TWO
 
     if template_type is None:
 
-        template_type: str = "SIMPLE_FORM"
-        template_used = form_templates.FULL_PAGE
+        template_type: str = "FULL_PAGE"
+        template_used = form_templates.FULL_PAGE_TWO
 
     # logging.debug(schema_model)
-    schema_dict = schema_model.schema_json()
+    form_model=schema_model.schema()
     # print(schema_dict)
-    new_schmae=uiSchema_generator(sm=schema_model)
+    schema=schema_generator(data_schema=form_model)
+    ui_schema = uiSchema_generator(data_schema=form_model)
 
-    # pydantic_schema_form: dict = {"schema": schema_dict, "uiSchema": ui_schema}
-
+    pydantic_schema_form: dict = {"schema": schema, "uiSchema": ui_schema}
 
     template = Template(template_used)
     logging.info(f"Template used {template_type}")
-    result = template.render(pydantic_schema_form=None)
+    result = template.render(pydantic_schema_form=pydantic_schema_form)
     return result
 
 
-def uiSchema_generator(sm:dict):
+def uiSchema_generator(data_schema):
+    data = data_schema.copy()
+    return data['uiSchema']
+
+def schema_generator(data_schema):
+    data = data_schema.copy()
+    data.pop('uiSchema')
+    return data
+
     
-    json_schema=sm.schema()
-    print(sm.schema_json(indent=2))
-    print(json_schema)
-    exclude_keys = ['ui_element']
-    ui_schema:dict={}
-    for j in json_schema['properties']:
-        print(j)
-
-
-
-
-
-
-            
-
