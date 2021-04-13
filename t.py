@@ -20,7 +20,7 @@ class MainModel(BaseModel):
         description="Fill in the text area",
     )
     example: str = Field(...)
-    
+
     snap: int = Field(
         42,
         title="The Snap",
@@ -49,7 +49,7 @@ class MainModel(BaseModel):
 data = MainModel.schema()
 x = data.copy()
 y = data.copy()
-y.pop('uiSchema')
-print(x['uiSchema'])
+y.pop("uiSchema")
+print(x["uiSchema"])
 print("----")
 print(y)

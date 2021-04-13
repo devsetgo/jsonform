@@ -34,9 +34,9 @@ def form_engine(
         template_used = form_templates.FULL_PAGE_TWO
 
     # logging.debug(schema_model)
-    form_model=schema_model.schema()
+    form_model = schema_model.schema()
     # print(schema_dict)
-    schema=schema_generator(data_schema=form_model)
+    schema = schema_generator(data_schema=form_model)
     ui_schema = uiSchema_generator(data_schema=form_model)
 
     pydantic_schema_form: dict = {"schema": schema, "uiSchema": ui_schema}
@@ -49,11 +49,10 @@ def form_engine(
 
 def uiSchema_generator(data_schema):
     data = data_schema.copy()
-    return data['uiSchema']
+    return data["uiSchema"]
+
 
 def schema_generator(data_schema):
     data = data_schema.copy()
-    data.pop('uiSchema')
+    data.pop("uiSchema")
     return data
-
-    

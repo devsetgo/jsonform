@@ -1,6 +1,6 @@
 from enum import Enum
 import json
-from typing import List,Dict
+from typing import List, Dict
 from pydantic import BaseModel, Field
 from pydantic.schema import schema, field_schema
 from json_form.ui_elements import BoolTypes, HiddenTypes, StringTypes, NumberTypes
@@ -16,7 +16,7 @@ class FooBar(BaseModel):
         lt=50,
     )
 
- 
+
 class Gender(str, Enum):
     male = "male"
     female = "female"
@@ -70,7 +70,7 @@ class BoolModels(BaseModel):
     This is an example of building a model for bool types
     """
 
-    this_is_checkbox: bool = Field(..., title="check box type") 
+    this_is_checkbox: bool = Field(..., title="check box type")
     this_is_select: bool = Field(..., title="select type")
     this_is_radio: bool = Field(..., title="radio type")
 
@@ -102,16 +102,18 @@ class StringExample(BaseModel):
     )
     gender: GenderSelect = Field(...)
 
+
 class BooksModels(BaseModel):
-    name:str=Field(...,title="book name",min_length=2,max_length=40)
-    isbn:str
+    name: str = Field(..., title="book name", min_length=2, max_length=40)
+    isbn: str
 
 
 class ExampleModel(BaseModel):
     """
     This is an example of building a model
     """
-    books:List[BoolModels]=None
+
+    books: List[BoolModels] = None
     bool_example: BoolModels
     string_example: StringExample
     first_name: str = Field(
