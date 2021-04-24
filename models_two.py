@@ -4,7 +4,8 @@ from typing import List
 from pydantic import BaseModel, Field, PrivateAttr
 from pydantic.schema import schema, field_schema
 from pydantic.utils import generate_model_signature
-from json_form.ui_elements import BoolTypes, HiddenTypes, StringTypes, NumberTypes
+from json_form.ui_helpers import BoolTypes, HiddenTypes, StringTypes, NumberTypes
+from json_form.ui_helpers import BoolField,CheckboxField,BoolSelectBoxField
 
 
 class CurrencyType(str, Enum):
@@ -31,7 +32,9 @@ class SimpleModel(BaseModel):
     """
     This is the description of the main model
     """
-
+    new_radio: bool = BoolField(..., title="new bool")
+    new_checkbox: bool = CheckboxField(..., title="new bool")
+    new_select: bool = BoolSelectBoxField(..., title="new bool")
     this_true: bool = Field(...)
     bunch_of_text: str = Field(
         ...,
@@ -45,15 +48,18 @@ class SimpleModel(BaseModel):
         42,
         title="The Snap",
         description="this is the value of snap",
-        gt=1,
+        gt=10,
         lt=100,
+        ui_widget=NumberTypes.range,
     )
     currency:CurrencyType
+    email_address:str
     contact: List[NameModel]
+    
 
 
     class Config:
-        title = "Main"
+        title = "Example Form"
         schema_extra = {
             "uiSchema": {
                 "example": StringTypes.date_time,
@@ -61,6 +67,8 @@ class SimpleModel(BaseModel):
                 "bunch_of_text": StringTypes.text_area,
                 "snap": NumberTypes.range,
                 "gender": NumberTypes.radio,
+                "email_address": StringTypes.email,
+                "test": BoolTypes.radio,
             },
         }
 

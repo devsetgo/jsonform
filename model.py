@@ -3,7 +3,7 @@ import json
 from typing import List, Dict
 from pydantic import BaseModel, Field
 from pydantic.schema import schema, field_schema
-from json_form.ui_elements import BoolTypes, HiddenTypes, StringTypes, NumberTypes
+from json_form.ui_helpers import BoolTypes, HiddenTypes, StringTypes, NumberTypes
 
 
 class FooBar(BaseModel):
@@ -50,7 +50,7 @@ class MainModel(BaseModel):
     )
 
     class Config:
-        title = "Main"
+        title = "Example Form"
         schema_extra = {
             "uiSchema": {
                 "example": StringTypes.date_time,

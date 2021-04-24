@@ -3,7 +3,7 @@ from json_form.forms import form_engine
 
 from flask import Flask
 from flask import request
-from model import MainModel, ExampleModel
+# from model import MainModel, ExampleModel
 from models_two import SimpleModel
 
 app = Flask(__name__)
@@ -17,6 +17,17 @@ def hello():
     # print(request.form)
 
     return result
+
+@app.route("/form2", methods=["GET", "POST"])
+def hello_two():
+
+    return SimpleModel.schema()
+    # result = form_engine(schema_model=SimpleModel)
+
+    # if request.method == "POST":
+    # print(request.form)
+
+    # return result
 
 
 # @app.route("/submit", methods=["GET", "POST"])
