@@ -1,8 +1,10 @@
 from enum import Enum
 import json
 from typing import List
+from uuid import UUID
 from pydantic import BaseModel, Field, PrivateAttr
 from pydantic.schema import schema, field_schema
+from pydantic.types import UUID1
 from pydantic.utils import generate_model_signature
 from json_form.ui_helpers import BoolTypes, HiddenTypes, StringTypes, NumberTypes
 from json_form.ui_helpers import BoolField,CheckboxField,BoolSelectBoxField
@@ -28,13 +30,14 @@ class NameModel(BaseModel):
     phone_number: str =Field(None,description="123-456-7890", regex="(\d{3}) \D* (\d{3}) \D* (\d{4}) \D* (\d*)")
 
 
+
 class SimpleModel(BaseModel):
     """
     This is the description of the main model
     """
-    new_radio: bool = BoolField(..., title="new bool")
-    new_checkbox: bool = CheckboxField(..., title="new bool")
-    new_select: bool = BoolSelectBoxField(..., title="new bool")
+    new_radio: bool = BoolField(...,)
+    new_checkbox: bool = CheckboxField(...,)
+    new_select: bool = BoolSelectBoxField(...,)
     this_true: bool = Field(...)
     bunch_of_text: str = Field(
         ...,
@@ -54,23 +57,36 @@ class SimpleModel(BaseModel):
     )
     currency:CurrencyType
     email_address:str
-    contact: List[NameModel]
+    # contact: List[NameModel]
+
+class MyForm(BaseModel):
     
+    contact: List[NameModel]
+    simple_model:SimpleModel 
+    
+
+class RegModel(BaseModel):
+    user_id:str
+    password:str
+    password_two:str
 
 
     class Config:
         title = "Example Form"
-        schema_extra = {
-            "uiSchema": {
-                "example": StringTypes.date_time,
-                "this_true": BoolTypes.radio,
-                "bunch_of_text": StringTypes.text_area,
-                "snap": NumberTypes.range,
-                "gender": NumberTypes.radio,
-                "email_address": StringTypes.email,
-                "test": BoolTypes.radio,
-            },
-        }
+        # schema_extra = {
+        #     "uiSchema": {
+        #         "example": StringTypes.date_time,
+        #         "this_true": BoolTypes.radio,
+        #         "bunch_of_text": StringTypes.text_area,
+        #         "snap": NumberTypes.range,
+        #         "gender": NumberTypes.radio,
+        #         "email_address": StringTypes.email,
+        #         "test": BoolTypes.radio,
+        #         'new_radio': 'radio',
+        #         'new_checkbox': 'checkbox',
+        #         'new_select': 'select'
+        #     },
+        # }
 
 
 # print(SimpleModel.schema_json(indent=2))

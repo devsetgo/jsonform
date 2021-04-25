@@ -4,14 +4,14 @@ from json_form.forms import form_engine
 from flask import Flask
 from flask import request
 # from model import MainModel, ExampleModel
-from models_two import SimpleModel
+from models_two import SimpleModel,MyForm
 
 app = Flask(__name__)
 
 
 @app.route("/", methods=["GET", "POST"])
 def hello():
-    result = form_engine(schema_model=SimpleModel)
+    result = form_engine(schema_model=MyForm)
 
     # if request.method == "POST":
     # print(request.form)
@@ -21,7 +21,7 @@ def hello():
 @app.route("/form2", methods=["GET", "POST"])
 def hello_two():
 
-    return SimpleModel.schema()
+    return MyForm.schema()
     # result = form_engine(schema_model=SimpleModel)
 
     # if request.method == "POST":
