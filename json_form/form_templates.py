@@ -129,7 +129,7 @@ FULL_PAGE_TWO = """
 <script src="https://unpkg.com/@rjsf/core/dist/react-jsonschema-form.js" crossorigin></script>
 <script>
 const Form = JSONSchemaForm.default;
-const schema = {{pydantic_schema_form.schema|safe}};
+const schema ={{pydantic_schema_form.schema|safe}};
 const uiSchema={{pydantic_schema_form.uiSchema|safe}};
 const log = (type) => console.log.bind(console, type);
 
@@ -149,3 +149,104 @@ ReactDOM.render( /*#__PURE__*/
 </body>
 </html>
 """
+
+VUE_FORM_TWO:str="""
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui@2.4.3/lib/theme-chalk/index.css">
+</head>
+
+<body>
+  <div id="demo">
+    <ncform :form-schema="formSchema" form-name="your-form-name" v-model="formSchema.value" @submit="submit()"></ncform>
+    <el-button @click="submit()">Submit</el-button>
+  </div>
+
+  <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script type="text/javascript" src="https://unpkg.com/@ncform/ncform-common/dist/ncformCommon.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/@ncform/ncform/dist/vueNcform.min.js"></script>
+
+  <script type="text/javascript" src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/@ncform/ncform-theme-elementui/dist/ncformStdComps.min.js"></script>
+
+  <script type="text/javascript">
+    Vue.use(vueNcform, { extComponents: ncformStdComps, /*lang: 'zh-cn'*/ });
+
+    // Bootstrap the app
+    new Vue({
+      el: '#demo',
+      data: {
+        formSchema: {{pydantic_schema_form.schema|safe}}
+      },
+      methods: {
+        submit() {
+          this.$ncformValidate('your-form-name').then(data => {
+            if (data.result) {
+              // do what you like to do
+            }
+          });
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
+ """
+
+VUE_FORM:str="""
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui@2.4.3/lib/theme-chalk/index.css">
+</head>
+
+<body>
+  <div id="demo">
+    <ncform :form-schema="formSchema" form-name="your-form-name" v-model="formSchema.value" @submit="submit()"></ncform>
+    <el-button @click="submit()">Submit</el-button>
+  </div>
+
+  <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script type="text/javascript" src="https://unpkg.com/@ncform/ncform-common/dist/ncformCommon.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/@ncform/ncform/dist/vueNcform.min.js"></script>
+
+  <script type="text/javascript" src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/@ncform/ncform-theme-elementui/dist/ncformStdComps.min.js"></script>
+
+  <script type="text/javascript">
+    Vue.use(vueNcform, { extComponents: ncformStdComps, /*lang: 'zh-cn'*/ });
+
+    // Bootstrap the app
+    new Vue({
+      el: '#demo',
+      data: {
+        formSchema: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string'
+            }
+          }
+        }
+      },
+      methods: {
+        submit() {
+          this.$ncformValidate('your-form-name').then(data => {
+            if (data.result) {
+              // do what you like to do
+            }
+          });
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
+ """

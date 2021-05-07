@@ -61,8 +61,8 @@ class SimpleModel(BaseModel):
 
 class MyForm(BaseModel):
     
-    contact: List[NameModel]
     simple_model:SimpleModel 
+    contact: List[NameModel]
     
 
 class RegModel(BaseModel):
